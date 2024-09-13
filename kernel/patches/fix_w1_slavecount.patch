@@ -1,0 +1,11 @@
+--- linux-6.6.46/drivers/w1/w1.c
++++ linux-6.6.46/drivers/w1/w1.c
+@@ -758,8 +760,6 @@
+ 	if (err < 0) {
+ 		dev_err(&dev->dev, "%s: Attaching %s failed.\n", __func__,
+ 			 sl->name);
+-		dev->slave_count--;
+-		w1_family_put(sl->family);
+ 		atomic_dec(&sl->master->refcnt);
+ 		kfree(sl);
+ 		return err;

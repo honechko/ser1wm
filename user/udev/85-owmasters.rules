@@ -1,0 +1,4 @@
+ACTION=="add", KERNEL=="ttyUSB[0-9]*", SUBSYSTEM=="tty", SUBSYSTEMS=="usb",\
+ ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="A50285BI",\
+ RUN+="/usr/local/bin/ser1wm_attach /dev/%k"
+

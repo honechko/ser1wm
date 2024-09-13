@@ -1,0 +1,24 @@
+--- linux-6.6.46/include/linux/w1.h
++++ linux-6.6.46/include/linux/w1.h
+@@ -238,6 +241,9 @@
+ 	struct w1_bus_master	*bus_master;
+ 
+ 	u32			seq;
++
++	u64			reset_counter;
++#define HAVE_W1_RESET_COUNTER
+ };
+ 
+ int w1_add_master_device(struct w1_bus_master *master);
+--- linux-6.6.46/drivers/w1/w1_io.c
++++ linux-6.6.46/drivers/w1/w1_io.c
+@@ -322,6 +328,9 @@
+ 
+ 	if(w1_disable_irqs) local_irq_save(flags);
+ 
++#ifdef HAVE_W1_RESET_COUNTER
++	dev->reset_counter++;
++#endif
+ 	if (dev->bus_master->reset_bus)
+ 		result = dev->bus_master->reset_bus(dev->bus_master->data) & 0x1;
+ 	else {

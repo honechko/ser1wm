@@ -1,0 +1,14 @@
+--- linux-6.6.46/drivers/w1/slaves/w1_therm.c
++++ linux-6.6.46/drivers/w1/slaves/w1_therm.c
+@@ -1175,11 +1175,6 @@
+ 				mutex_unlock(&dev_master->bus_mutex);
+ 			} else { /*some device need pullup */
+ 				mutex_unlock(&dev_master->bus_mutex);
+-				sleep_rem = msleep_interruptible(t_conv);
+-				if (sleep_rem != 0) {
+-					ret = -EINTR;
+-					goto dec_refcnt;
+-				}
+ 			}
+ 			ret = read_scratchpad(sl, info);
+ 

@@ -1,0 +1,24 @@
+--- linux-6.6.46/drivers/w1/masters/Makefile
++++ linux-6.6.46/drivers/w1/masters/Makefile
+@@ -11,3 +11,4 @@
+ obj-$(CONFIG_W1_MASTER_GPIO)		+= w1-gpio.o
+ obj-$(CONFIG_HDQ_MASTER_OMAP)		+= omap_hdq.o
+ obj-$(CONFIG_W1_MASTER_SGI)		+= sgi_w1.o
++obj-$(CONFIG_W1_MASTER_SER1WM)		+= ser1wm.o
+--- linux-6.6.46/drivers/w1/masters/Kconfig
++++ linux-6.6.46/drivers/w1/masters/Kconfig
+@@ -67,5 +67,14 @@
+ 	  This support is also available as a module.  If so, the module
+ 	  will be called sgi_w1.
+ 
++config W1_MASTER_SER1WM
++	tristate "Serial 1-Wire busmaster"
++	depends on SERIO
++	help
++	  If you say yes here you get support for serial to 1-Wire bridge.
++
++	  This driver can also be built as a module.  If so, the module
++	  will be called ser1wm.
++
+ endmenu
+ 

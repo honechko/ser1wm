@@ -1,0 +1,15 @@
+--- linux-6.6.46/drivers/w1/w1.c
++++ linux-6.6.46/drivers/w1/w1.c
+@@ -736,10 +736,12 @@
+ 	dev_info(&dev->dev, "Attaching one wire slave %02x.%012llx crc %02x\n",
+ 		  rn->family, (unsigned long long)rn->id, rn->crc);
+ 
++	if (!w1_family_registered(rn->family)) {
+ 	/* slave modules need to be loaded in a context with unlocked mutex */
+ 	mutex_unlock(&dev->mutex);
+ 	request_module("w1-family-0x%02X", rn->family);
+ 	mutex_lock(&dev->mutex);
++	}
+ 
+ 	spin_lock(&w1_flock);
+ 	f = w1_family_registered(rn->family);
